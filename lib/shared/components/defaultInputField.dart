@@ -23,10 +23,7 @@ class DefaultInputField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 30.0,
-        vertical: 20.0,
-      ),
+      padding: const EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 20.0),
       child: TextFormField(
         keyboardType: inputKeyboard,
         validator: inputValidator,

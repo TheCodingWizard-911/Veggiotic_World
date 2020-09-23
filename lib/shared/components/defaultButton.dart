@@ -24,24 +24,27 @@ class DefaultButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    return SizedBox(
-      width: screenWidth * buttonWidth,
-      height: buttonHeight,
-      child: RaisedButton(
-        onPressed: onTap,
-        onLongPress: onLongPressed,
-        elevation: buttonElevation,
-        color: buttonColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(25.0),
-        ),
-        child: Text(
-          buttonText,
-          style: TextStyle(
-            fontFamily: 'Nunito',
-            color: buttonTextColor,
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: SizedBox(
+        width: screenWidth * buttonWidth,
+        height: buttonHeight,
+        child: RaisedButton(
+          onPressed: onTap,
+          onLongPress: onLongPressed,
+          elevation: buttonElevation,
+          color: buttonColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(25.0),
+          ),
+          child: Text(
+            buttonText,
+            style: TextStyle(
+              fontFamily: 'Nunito',
+              color: buttonTextColor,
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),

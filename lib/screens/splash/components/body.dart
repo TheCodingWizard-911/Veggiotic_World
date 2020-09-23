@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:veggiotic_world/screens/loading/loadingScreen.dart';
+import 'package:veggiotic_world/screens/authentication/signIn/signInScreen.dart';
 import 'package:veggiotic_world/shared/components/defaultButton.dart';
+import 'package:veggiotic_world/shared/components/defaultLogo.dart';
 import 'package:veggiotic_world/shared/constants.dart';
 
 class Body extends StatelessWidget {
@@ -10,30 +11,19 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Column(
         children: <Widget>[
-          Container(
-            width: screenWidth,
-            height: screenHeight * 0.63,
-            child: Padding(
-              padding: EdgeInsets.all(25),
-              child: Image(
-                image: AssetImage("assets/icons/Logo.png"),
-              ),
-            ),
-          ),
+          DefaultLogo(heightFactor: 0.63),
           Expanded(
             child: Container(
+              width: double.infinity,
               decoration: BoxDecoration(
                 color: primaryBackgroundColor,
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(45.0),
                     topRight: Radius.circular(45.0)),
               ),
-              width: screenWidth,
               child: Padding(
                 padding: const EdgeInsets.all(25.0),
                 child: Column(
@@ -48,7 +38,7 @@ class Body extends StatelessWidget {
                           fontSize: 28,
                           fontFamily: 'Maian'),
                     ),
-                    SizedBox(height: 25.0),
+                    SizedBox(height: 24.0),
                     Text(
                       "click on the following button and\nstart browsing our products",
                       textAlign: TextAlign.center,
@@ -58,12 +48,12 @@ class Body extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 30.0,
+                      height: 16.0,
                     ),
                     DefaultButton(
                       buttonText: "Get Started",
                       onTap: () {
-                        Navigator.pushNamed(context, LoadingScreen.routeName);
+                        Navigator.pushNamed(context, SignInScreen.routeName);
                       },
                     )
                   ],
