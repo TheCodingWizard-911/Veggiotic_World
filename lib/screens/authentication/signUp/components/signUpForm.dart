@@ -1,30 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:veggiotic_world/screens/authentication/signUp/signUpScreen.dart';
+import 'package:veggiotic_world/screens/authentication/signIn/signInScreen.dart';
 import 'package:veggiotic_world/shared/components/defaultButton.dart';
 import 'package:veggiotic_world/shared/components/defaultInputField.dart';
 import 'package:veggiotic_world/shared/components/defaultPasswordInputField.dart';
 import 'package:veggiotic_world/shared/components/defaultTouchableIcon.dart';
 import 'package:veggiotic_world/shared/components/defaultTouchableText.dart';
+import 'package:veggiotic_world/shared/constants.dart';
 import 'package:veggiotic_world/shared/validators.dart';
 
-class SignInForm extends StatefulWidget {
+class SignUpForm extends StatefulWidget {
   @override
-  _SignInFormState createState() => _SignInFormState();
+  _SignUpFormState createState() => _SignUpFormState();
 }
 
-class _SignInFormState extends State<SignInForm> {
+class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
 
   String email;
   String password;
+  String confirmPassword;
   String error;
   bool passwordVisible = false;
+  bool confirmPasswordVisible = false;
 
-  toggleVisibility() {
+  togglePasswordVisibility() {
     setState(() {
       passwordVisible = !passwordVisible;
     });
+  }
+
+  toggleConfirmPasswordVisibility() {
+    setState(() {
+      confirmPasswordVisible = !confirmPasswordVisible;
+    });
+  }
+
+  String confirmPasswordValidator(newPassword) {
+    if (newPassword.isEmpty) {
+      return passwordNullError;
+    } else if (newPassword != password) {
+      return matchPasswordError;
+    }
+    return null;
   }
 
   @override
@@ -77,18 +95,29 @@ class _SignInFormState extends State<SignInForm> {
                   valueSaved: (newPassword) {
                     password = newPassword;
                   },
-                  changeVisibility: toggleVisibility,
+                  changeVisibility: togglePasswordVisibility,
                   inputLabel: "Password",
                   inputHint: "Enter Your Password",
                   passwordVisible: passwordVisible,
                 ),
-                DefaultTouchableText(
-                  onPress: () {},
-                  text: "Forgot Password ?",
+                DefaultPasswordInputField(
+                  inputValidator: confirmPasswordValidator,
+                  valueChanged: (newPassword) {
+                    setState(() {
+                      confirmPassword = newPassword;
+                    });
+                  },
+                  valueSaved: (newPassword) {
+                    confirmPassword = newPassword;
+                  },
+                  changeVisibility: toggleConfirmPasswordVisibility,
+                  inputLabel: "Confirm Password",
+                  inputHint: "Confirm Your Password",
+                  passwordVisible: confirmPasswordVisible,
                 ),
                 DefaultButton(
                   onTap: () {},
-                  buttonText: "SignIn",
+                  buttonText: "Signup",
                   buttonHeight: 40,
                   buttonWidth: 0.65,
                 ),
@@ -96,7 +125,7 @@ class _SignInFormState extends State<SignInForm> {
                   padding: const EdgeInsets.all(10.0),
                   child: Center(
                     child: Text(
-                      "- or signin with -",
+                      "- or signup with -",
                       style: TextStyle(
                         fontSize: 16,
                       ),
@@ -105,7 +134,7 @@ class _SignInFormState extends State<SignInForm> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 10.0, vertical: 5.0),
+                      horizontal: 10.0, vertical: 0.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -142,7 +171,7 @@ class _SignInFormState extends State<SignInForm> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Don't have an account ?",
+                        "Already have an account ?",
                         style: TextStyle(
                           fontSize: 16,
                         ),
@@ -152,9 +181,9 @@ class _SignInFormState extends State<SignInForm> {
                       ),
                       DefaultTouchableText(
                         onPress: () {
-                          Navigator.pushNamed(context, SignUpScreen.routeName);
+                          Navigator.pushNamed(context, SignInScreen.routeName);
                         },
-                        text: "SignUp",
+                        text: "SignIn",
                         color: Colors.blue,
                       ),
                     ],
