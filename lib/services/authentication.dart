@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:veggiotic_world/models/appUser.dart';
+import 'package:veggiotic_world/shared/components/defaultAlertDialog.dart';
 import 'package:veggiotic_world/shared/constants.dart';
 
 class AuthService {
@@ -14,7 +16,8 @@ class AuthService {
   }
 
   // Signup with email and password
-  Future signupWithEmailAndPassword(String email, String password) async {
+  Future signupWithEmailAndPassword(
+      BuildContext context, String email, String password) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
@@ -22,18 +25,19 @@ class AuthService {
       return _userFromFirebaseUser(user);
     } on FirebaseAuthException catch (error) {
       if (error.code == 'weak-password') {
-        print(weakPasswordError);
+        showAlertDialog(context, "Error", weakPasswordError, "OK");
       } else if (error.code == 'email-already-in-use') {
-        print(accountAlreadyExistError);
+        showAlertDialog(context, "Error", accountAlreadyExistError, "OK");
       }
     } catch (error) {
-      print(error.toString());
+      showAlertDialog(context, "Error", error.toString(), "OK");
       return null;
     }
   }
 
   // Login in with email and password
-  Future signinWithEmailAndPassword(String email, String password) async {
+  Future signinWithEmailAndPassword(
+      BuildContext context, String email, String password) async {
     try {
       UserCredential result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
@@ -41,22 +45,22 @@ class AuthService {
       return _userFromFirebaseUser(user);
     } on FirebaseAuthException catch (error) {
       if (error.code == 'user-not-found') {
-        print(accountDoesNotExistError);
+        showAlertDialog(context, "Error", accountDoesNotExistError, "OK");
       } else if (error.code == 'wrong-password') {
-        print(incorrectPasswordError);
+        showAlertDialog(context, "Error", incorrectPasswordError, "OK");
       }
     } catch (error) {
-      print(error.toString());
+      showAlertDialog(context, "Error", error.toString(), "OK");
       return null;
     }
   }
 
   // sign out
-  Future signOut() async {
+  Future signOut(BuildContext context) async {
     try {
       return await _auth.signOut();
     } catch (error) {
-      print(error.toString());
+      showAlertDialog(context, "Error", error.toString(), "OK");
       return null;
     }
   }

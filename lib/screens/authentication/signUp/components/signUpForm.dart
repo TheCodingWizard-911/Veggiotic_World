@@ -4,6 +4,7 @@ import 'package:veggiotic_world/screens/loading/loadingScreen.dart';
 import 'package:veggiotic_world/screens/authentication/signIn/signInScreen.dart';
 import 'package:veggiotic_world/screens/splash/splashScreen.dart';
 import 'package:veggiotic_world/services/authentication.dart';
+import 'package:veggiotic_world/shared/components/defaultAlertDialog.dart';
 import 'package:veggiotic_world/shared/components/defaultButton.dart';
 import 'package:veggiotic_world/shared/components/defaultInputField.dart';
 import 'package:veggiotic_world/shared/components/defaultPasswordInputField.dart';
@@ -131,14 +132,14 @@ class _SignUpFormState extends State<SignUpForm> {
                                 loading = true;
                               }),
                               result = await _auth.signupWithEmailAndPassword(
-                                  email, password),
+                                  context, email, password),
                               if (result == null)
                                 {
                                   setState(() => {
-                                        error = "Error! unable to sign up.",
+                                        error = "Unable to sign up.",
                                         loading = false,
                                       }),
-                                  print(error)
+                                  showAlertDialog(context, "Error", error, "OK")
                                 }
                               else
                                 {
