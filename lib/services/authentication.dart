@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:veggiotic_world/models/appUser.dart';
+import 'package:veggiotic_world/shared/constants.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -21,9 +22,9 @@ class AuthService {
       return _userFromFirebaseUser(user);
     } on FirebaseAuthException catch (error) {
       if (error.code == 'weak-password') {
-        print("Password is too weak, kindly change");
+        print(weakPasswordError);
       } else if (error.code == 'email-already-in-use') {
-        print("Account with that email already exist.");
+        print(accountAlreadyExistError);
       }
     } catch (error) {
       print(error.toString());
@@ -40,9 +41,9 @@ class AuthService {
       return _userFromFirebaseUser(user);
     } on FirebaseAuthException catch (error) {
       if (error.code == 'user-not-found') {
-        print("Account with that email does not exist.");
+        print(accountDoesNotExistError);
       } else if (error.code == 'wrong-password') {
-        print("Entered Password is incorrect.");
+        print(incorrectPasswordError);
       }
     } catch (error) {
       print(error.toString());
