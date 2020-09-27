@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "483403260139",
+    "firebase_url": "https://veggies-world-app.firebaseio.com",
+    "project_id": "veggies-world-app",
+    "storage_bucket": "veggies-world-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:483403260139:android:039be25972387c1f76deae",
+        "android_client_info": {
+          "package_name": "com.veggioticworld.veggiotic_world"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "483403260139-tt1nuap9ref5gn4q0oietfjfplglbhfo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrcF62yehhzqXQswuZfrv_ilWafVV0Kac"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "483403260139-tt1nuap9ref5gn4q0oietfjfplglbhfo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -5,13 +5,9 @@ class LoadingScreen extends StatelessWidget {
   static String routeName = "/loading";
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: SpinKitDualRing(
-          color: Colors.pink,
-          size: 50.0,
-        ),
-      ),
+    return SpinKitDualRing(
+      color: Colors.pink,
+      size: 50.0,
     );
   }
 }

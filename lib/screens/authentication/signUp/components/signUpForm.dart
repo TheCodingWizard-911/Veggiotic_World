@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:veggiotic_world/screens/loading/loadingScreen.dart';
 import 'package:veggiotic_world/screens/authentication/signIn/signInScreen.dart';
+import 'package:veggiotic_world/screens/splash/splashScreen.dart';
+import 'package:veggiotic_world/services/authentication.dart';
 import 'package:veggiotic_world/shared/components/defaultButton.dart';
 import 'package:veggiotic_world/shared/components/defaultInputField.dart';
 import 'package:veggiotic_world/shared/components/defaultPasswordInputField.dart';
@@ -15,6 +18,7 @@ class SignUpForm extends StatefulWidget {
 }
 
 class _SignUpFormState extends State<SignUpForm> {
+  final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
 
   String email;
@@ -23,6 +27,8 @@ class _SignUpFormState extends State<SignUpForm> {
   String error;
   bool passwordVisible = false;
   bool confirmPasswordVisible = false;
+  dynamic result;
+  bool loading = false;
 
   togglePasswordVisibility() {
     setState(() {
@@ -65,134 +71,159 @@ class _SignUpFormState extends State<SignUpForm> {
             ),
           ],
         ),
-        child: Form(
-          key: _formKey,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                DefaultInputField(
-                  inputKeyboard: TextInputType.emailAddress,
-                  inputLabel: "Email",
-                  inputHint: "Enter Your Email",
-                  icon: Icons.alternate_email,
-                  inputValidator: emailValidator,
-                  valueChanged: (newEmail) {
-                    setState(() {
-                      email = newEmail;
-                    });
-                  },
-                  valueSaved: (newEmail) {
-                    email = newEmail;
-                  },
-                ),
-                DefaultPasswordInputField(
-                  inputValidator: passwordValidator,
-                  valueChanged: (newPassword) {
-                    setState(() {
-                      password = newPassword;
-                    });
-                  },
-                  valueSaved: (newPassword) {
-                    password = newPassword;
-                  },
-                  changeVisibility: togglePasswordVisibility,
-                  inputLabel: "Password",
-                  inputHint: "Enter Your Password",
-                  passwordVisible: passwordVisible,
-                ),
-                DefaultPasswordInputField(
-                  inputValidator: confirmPasswordValidator,
-                  valueChanged: (newPassword) {
-                    setState(() {
-                      confirmPassword = newPassword;
-                    });
-                  },
-                  valueSaved: (newPassword) {
-                    confirmPassword = newPassword;
-                  },
-                  changeVisibility: toggleConfirmPasswordVisibility,
-                  inputLabel: "Confirm Password",
-                  inputHint: "Confirm Your Password",
-                  passwordVisible: confirmPasswordVisible,
-                ),
-                DefaultButton(
-                  onTap: () {},
-                  buttonText: "Signup",
-                  buttonHeight: 40,
-                  buttonWidth: 0.65,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Center(
-                    child: Text(
-                      "- or signup with -",
-                      style: TextStyle(
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 10.0, vertical: 0.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+        child: loading
+            ? LoadingScreen()
+            : Form(
+                key: _formKey,
+                child: SingleChildScrollView(
+                  child: Column(
                     children: [
-                      DefaultTouchableIcon(
-                        onPress: null,
-                        icon: Icon(
-                          MdiIcons.googlePlus,
-                          size: 40,
-                          color: Colors.red[400],
-                        ),
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 12.0,
-                          vertical: 5.0,
-                        ),
-                      ),
-                      DefaultTouchableIcon(
-                        onPress: null,
-                        icon: Icon(
-                          MdiIcons.facebook,
-                          size: 30,
-                          color: Colors.blue[800],
-                        ),
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 12.0,
-                          vertical: 5.0,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 40.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Already have an account ?",
-                        style: TextStyle(
-                          fontSize: 16,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      DefaultTouchableText(
-                        onPress: () {
-                          Navigator.pushNamed(context, SignInScreen.routeName);
+                      DefaultInputField(
+                        inputKeyboard: TextInputType.emailAddress,
+                        inputLabel: "Email",
+                        inputHint: "Enter Your Email",
+                        icon: Icons.alternate_email,
+                        inputValidator: emailValidator,
+                        valueChanged: (newEmail) {
+                          setState(() {
+                            email = newEmail;
+                          });
                         },
-                        text: "SignIn",
-                        color: Colors.blue,
+                        valueSaved: (newEmail) {
+                          email = newEmail;
+                        },
                       ),
+                      DefaultPasswordInputField(
+                        inputValidator: passwordValidator,
+                        valueChanged: (newPassword) {
+                          setState(() {
+                            password = newPassword;
+                          });
+                        },
+                        valueSaved: (newPassword) {
+                          password = newPassword;
+                        },
+                        changeVisibility: togglePasswordVisibility,
+                        inputLabel: "Password",
+                        inputHint: "Enter Your Password",
+                        passwordVisible: passwordVisible,
+                      ),
+                      DefaultPasswordInputField(
+                        inputValidator: confirmPasswordValidator,
+                        valueChanged: (newPassword) {
+                          setState(() {
+                            confirmPassword = newPassword;
+                          });
+                        },
+                        valueSaved: (newPassword) {
+                          confirmPassword = newPassword;
+                        },
+                        changeVisibility: toggleConfirmPasswordVisibility,
+                        inputLabel: "Confirm Password",
+                        inputHint: "Confirm Your Password",
+                        passwordVisible: confirmPasswordVisible,
+                      ),
+                      DefaultButton(
+                        onTap: () async => {
+                          if (_formKey.currentState.validate())
+                            {
+                              setState(() {
+                                loading = true;
+                              }),
+                              result = await _auth.signupWithEmailAndPassword(
+                                  email, password),
+                              if (result == null)
+                                {
+                                  setState(() => {
+                                        error = "Error! unable to sign up.",
+                                        loading = false,
+                                      }),
+                                  print(error)
+                                }
+                              else
+                                {
+                                  Navigator.pushNamed(
+                                      context, SplashScreen.routeName)
+                                }
+                            }
+                        },
+                        buttonText: "Signup",
+                        buttonHeight: 40,
+                        buttonWidth: 0.65,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Center(
+                          child: Text(
+                            "- or signup with -",
+                            style: TextStyle(
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10.0, vertical: 0.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            DefaultTouchableIcon(
+                              onPress: null,
+                              icon: Icon(
+                                MdiIcons.googlePlus,
+                                size: 40,
+                                color: Colors.red[400],
+                              ),
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 12.0,
+                                vertical: 5.0,
+                              ),
+                            ),
+                            DefaultTouchableIcon(
+                              onPress: null,
+                              icon: Icon(
+                                MdiIcons.facebook,
+                                size: 30,
+                                color: Colors.blue[800],
+                              ),
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 12.0,
+                                vertical: 5.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 40.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Already have an account ?",
+                              style: TextStyle(
+                                fontSize: 16,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            DefaultTouchableText(
+                              onPress: () {
+                                Navigator.pushNamed(
+                                    context, SignInScreen.routeName);
+                              },
+                              text: "SignIn",
+                              color: Colors.blue,
+                            ),
+                          ],
+                        ),
+                      )
                     ],
                   ),
-                )
-              ],
-            ),
-          ),
-        ),
+                ),
+              ),
       ),
     );
   }
