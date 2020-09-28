@@ -14,6 +14,7 @@ void showAlertDialog(
           title,
           style: TextStyle(
             fontWeight: FontWeight.bold,
+            color: Colors.red,
           ),
           textAlign: TextAlign.center,
         ),

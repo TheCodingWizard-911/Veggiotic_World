@@ -15,7 +15,8 @@ const String namelNullError = "Please Enter your name";
 const String phoneNumberNullError = "Please Enter your phone number";
 const String addressNullError = "Please Enter your address";
 const String weakPasswordError = "Password is too weak, kindly change";
-const String accountAlreadyExistError = "Account with that email already exist";
+const String accountAlreadyExistError =
+    "Account with that email already exist\nplease log in";
 const String accountDoesNotExistError =
-    "Account with that email does not exist";
+    "Account with that email does not exist\nplease create one";
 const String incorrectPasswordError = "Entered Password is incorrect";

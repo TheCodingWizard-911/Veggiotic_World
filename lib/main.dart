@@ -1,7 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:veggiotic_world/screens/splash/splashScreen.dart';
+import 'package:veggiotic_world/screens/home/homeScreen.dart';
+//import 'package:veggiotic_world/screens/splash/splashScreen.dart';
 import 'package:veggiotic_world/services/authentication.dart';
 import 'package:veggiotic_world/shared/routes.dart';
 import 'package:veggiotic_world/shared/theme.dart';
@@ -21,7 +22,7 @@ class VeggioticWorld extends StatelessWidget {
         title: "Veggiotic World",
         theme: theme(),
         routes: routes,
-        initialRoute: SplashScreen.routeName,
+        initialRoute: HomeScreen.routeName,
       ),
     );
   }

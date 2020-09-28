@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:veggiotic_world/screens/loading/loadingScreen.dart';
 import 'package:veggiotic_world/screens/authentication/signIn/signInScreen.dart';
 import 'package:veggiotic_world/screens/splash/splashScreen.dart';
@@ -8,7 +7,6 @@ import 'package:veggiotic_world/shared/components/defaultAlertDialog.dart';
 import 'package:veggiotic_world/shared/components/defaultButton.dart';
 import 'package:veggiotic_world/shared/components/defaultInputField.dart';
 import 'package:veggiotic_world/shared/components/defaultPasswordInputField.dart';
-import 'package:veggiotic_world/shared/components/defaultTouchableIcon.dart';
 import 'package:veggiotic_world/shared/components/defaultTouchableText.dart';
 import 'package:veggiotic_world/shared/constants.dart';
 import 'package:veggiotic_world/shared/validators.dart';
@@ -153,51 +151,8 @@ class _SignUpFormState extends State<SignUpForm> {
                         buttonWidth: 0.65,
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Center(
-                          child: Text(
-                            "- or signup with -",
-                            style: TextStyle(
-                              fontSize: 16,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10.0, vertical: 0.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            DefaultTouchableIcon(
-                              onPress: null,
-                              icon: Icon(
-                                MdiIcons.googlePlus,
-                                size: 40,
-                                color: Colors.red[400],
-                              ),
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 12.0,
-                                vertical: 5.0,
-                              ),
-                            ),
-                            DefaultTouchableIcon(
-                              onPress: null,
-                              icon: Icon(
-                                MdiIcons.facebook,
-                                size: 30,
-                                color: Colors.blue[800],
-                              ),
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 12.0,
-                                vertical: 5.0,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 40.0),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 40.0, vertical: 20),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
