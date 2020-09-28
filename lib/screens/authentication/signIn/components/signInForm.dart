@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:veggiotic_world/screens/authentication/signUp/signUpScreen.dart';
+import 'package:veggiotic_world/screens/home/homeScreen.dart';
 import 'package:veggiotic_world/screens/loading/loadingScreen.dart';
-import 'package:veggiotic_world/screens/splash/splashScreen.dart';
 import 'package:veggiotic_world/services/authentication.dart';
 import 'package:veggiotic_world/shared/components/defaultAlertDialog.dart';
 import 'package:veggiotic_world/shared/components/defaultButton.dart';
@@ -116,7 +116,7 @@ class _SignInFormState extends State<SignInForm> {
                                 {
                                   loading = false,
                                   Navigator.pushNamed(
-                                      context, SplashScreen.routeName)
+                                      context, HomeScreen.routeName)
                                 }
                             }
                         },

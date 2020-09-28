@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:veggiotic_world/models/appUser.dart';
 import 'package:veggiotic_world/screens/authentication/signIn/signInScreen.dart';
+import 'package:veggiotic_world/screens/home/homeScreen.dart';
 import 'package:veggiotic_world/shared/components/defaultButton.dart';
 import 'package:veggiotic_world/shared/components/defaultLogo.dart';
 import 'package:veggiotic_world/shared/constants.dart';
@@ -11,6 +14,7 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appUser = Provider.of<AppUser>(context);
     return SafeArea(
       child: Column(
         children: <Widget>[
@@ -53,7 +57,11 @@ class Body extends StatelessWidget {
                     DefaultButton(
                       buttonText: "Get Started",
                       onTap: () {
-                        Navigator.pushNamed(context, SignInScreen.routeName);
+                        if (appUser == null) {
+                          Navigator.pushNamed(context, SignInScreen.routeName);
+                        } else {
+                          Navigator.pushNamed(context, HomeScreen.routeName);
+                        }
                       },
                     )
                   ],

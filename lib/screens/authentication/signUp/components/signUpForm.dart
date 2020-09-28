@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:veggiotic_world/screens/home/homeScreen.dart';
 import 'package:veggiotic_world/screens/loading/loadingScreen.dart';
 import 'package:veggiotic_world/screens/authentication/signIn/signInScreen.dart';
-import 'package:veggiotic_world/screens/splash/splashScreen.dart';
 import 'package:veggiotic_world/services/authentication.dart';
 import 'package:veggiotic_world/shared/components/defaultAlertDialog.dart';
 import 'package:veggiotic_world/shared/components/defaultButton.dart';
@@ -142,7 +142,7 @@ class _SignUpFormState extends State<SignUpForm> {
                               else
                                 {
                                   Navigator.pushNamed(
-                                      context, SplashScreen.routeName)
+                                      context, HomeScreen.routeName)
                                 }
                             }
                         },
