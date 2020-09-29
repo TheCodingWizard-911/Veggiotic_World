@@ -3,6 +3,18 @@ import 'package:flutter/material.dart';
 const primaryColor = Color(0xFF7AA9A7);
 const primaryBackgroundColor = Color(0xFFF5F5DC);
 
+const primaryGradient = LinearGradient(
+  begin: Alignment.topLeft,
+  end: Alignment.bottomRight,
+  colors: [primaryColor, primaryBackgroundColor],
+);
+
+const secondaryGradient = LinearGradient(
+  begin: Alignment.bottomRight,
+  end: Alignment.topLeft,
+  colors: [primaryColor, primaryBackgroundColor],
+);
+
 final RegExp emailValidatorRegExp =
     RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
 

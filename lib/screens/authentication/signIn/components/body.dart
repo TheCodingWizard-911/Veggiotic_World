@@ -18,7 +18,7 @@ class Body extends StatelessWidget {
           Expanded(
             child: Container(
               decoration: BoxDecoration(
-                color: primaryColor,
+                gradient: primaryGradient,
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(45.0),
                     topRight: Radius.circular(45.0)),
