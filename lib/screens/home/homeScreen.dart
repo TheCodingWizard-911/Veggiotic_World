@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:veggiotic_world/shared/components/defaultDrawerHeader.dart';
 import 'package:veggiotic_world/shared/components/defaultDrawerTile.dart';
 import 'package:veggiotic_world/shared/components/defaultTouchableIcon.dart';
+import 'package:provider/provider.dart';
+import 'package:veggiotic_world/services/database.dart';
 
 import 'components/body.dart';
 
@@ -38,23 +40,26 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Home"),
-        actions: actionWidgets,
-      ),
-      body: Body(),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.all(0.0),
-          children: [
-            DefaultDrawerHeader(),
-            DefaultDrawerTile(
-              leadingIcon: Icons.home,
-              title: "Home",
-              nextRoute: HomeScreen.routeName,
-            ),
-          ],
+    return StreamProvider.value(
+      value: DatabaseService().products,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("Home"),
+          actions: actionWidgets,
+        ),
+        body: Body(),
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.all(0.0),
+            children: [
+              DefaultDrawerHeader(),
+              DefaultDrawerTile(
+                leadingIcon: Icons.home,
+                title: "Home",
+                nextRoute: HomeScreen.routeName,
+              ),
+            ],
+          ),
         ),
       ),
     );
