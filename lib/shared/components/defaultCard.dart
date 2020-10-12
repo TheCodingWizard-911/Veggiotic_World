@@ -19,7 +19,7 @@ class DefaultCard extends StatelessWidget {
       child: GestureDetector(
         onTap: onPress,
         child: Card(
-          elevation: 12.0,
+          elevation: 10.0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(25.0),
           ),

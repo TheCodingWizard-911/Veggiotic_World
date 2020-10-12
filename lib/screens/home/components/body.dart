@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'homeList.dart';
+import 'categoryList.dart';
 
 class Body extends StatelessWidget {
   const Body({
@@ -10,7 +10,7 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: HomeList(),
+      child: CategoryList(),
     );
   }
 }

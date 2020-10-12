@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:veggiotic_world/models/productCategory.dart';
 
 class DatabaseService {
   final String uid;
@@ -14,10 +15,19 @@ class DatabaseService {
     });
   }
 
-  final CollectionReference productCollection =
+  final CollectionReference categoryCollection =
       FirebaseFirestore.instance.collection("Products");
 
-  Stream<QuerySnapshot> get products {
-    return productCollection.snapshots();
+  List<Category> _categoryListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      return Category(
+        url: doc.data()['url'],
+        description: doc.data()['description'],
+      );
+    }).toList();
+  }
+
+  Stream<List<Category>> get categories {
+    return categoryCollection.snapshots().map(_categoryListFromSnapshot);
   }
 }

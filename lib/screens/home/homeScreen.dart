@@ -41,7 +41,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamProvider.value(
-      value: DatabaseService().products,
+      value: DatabaseService().categories,
       child: Scaffold(
         appBar: AppBar(
           title: Text("Home"),
